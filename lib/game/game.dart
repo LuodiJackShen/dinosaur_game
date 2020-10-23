@@ -289,7 +289,6 @@ class _GameState extends State<Game> with SingleTickerProviderStateMixin {
       curScore = 0;
       jumping = false;
       canJump = true;
-      jumpController.stop();
     });
     groundTimer?.cancel();
   }
