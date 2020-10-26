@@ -5,7 +5,6 @@ import 'dart:math' as math;
 import 'package:dinosaur_game/bean/tree.dart';
 import 'package:dinosaur_game/util/utils.dart' as utils;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'dinosaur_widget.dart';
 import 'ground.dart';
@@ -57,10 +56,6 @@ class _GameState extends State<Game> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
 
     jumpController = AnimationController(
       vsync: this,

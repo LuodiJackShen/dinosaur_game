@@ -1,7 +1,14 @@
-import 'package:dinosaur_game/game/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'intro_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   runApp(MyApp());
 }
 
@@ -13,7 +20,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Game(),
+      debugShowCheckedModeBanner: false,
+      home: IntroPage(),
     );
   }
 }
