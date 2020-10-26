@@ -232,9 +232,8 @@ class _GameState extends State<Game> with SingleTickerProviderStateMixin {
     double screenWidth = MediaQuery.of(context).size.width;
     double singleGroundWidth = ratio * screenWidth;
 
-    return AnimatedAlign(
+    return Align(
       alignment: FractionalOffset(xAlign, groundYAlign),
-      duration: Duration(microseconds: 0),
       child: CustomPaint(
         size: Size(singleGroundWidth, groundHeight),
         painter: Ground(color: color ?? drawColor, tree: tree),

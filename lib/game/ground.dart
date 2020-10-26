@@ -1,4 +1,5 @@
 import 'package:dinosaur_game/bean/tree.dart';
+import 'package:dinosaur_game/util/rubble_factory.dart';
 import 'package:flutter/material.dart';
 
 class Ground extends CustomPainter {
@@ -35,11 +36,16 @@ class Ground extends CustomPainter {
     } else {
       drawTree(canvas, startX: tree.start, isSmall: tree.isSmall);
     }
+
+    //碎石子
+    RubbleFactory.instance.createRubbles(width, height).forEach((rubble) {
+      canvas.drawLine(rubble.start, rubble.end, linePaint);
+    });
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
+    return false;
   }
 
   void drawTree(
