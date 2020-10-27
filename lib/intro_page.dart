@@ -60,6 +60,7 @@ class _IntroPageState extends State<IntroPage>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
+        Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => Game(),
@@ -68,7 +69,12 @@ class _IntroPageState extends State<IntroPage>
       }
     });
 
-    _controller.forward();
+    //当页面展示完全后再运行动画
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Future.delayed(Duration(milliseconds: 500), () {
+        _controller.forward();
+      });
+    });
   }
 
   @override

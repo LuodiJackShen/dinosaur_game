@@ -16,11 +16,11 @@ class Game extends StatefulWidget {
 
 const double adminWidth = 40.0; //角色宽度
 const double adminHeight = 40.0; //角色高度
-const double initAdminYAlign = 0.655; //角色初始位置
 const double jumpHeight = 0.4; //角色跳的高度
 const double initCenterXAlign = 0.5; //中间土地的初始位置
 const double adminXAlign = 0.15; //角色在x轴的位置
 const double groundYAlign = 0.7; //土地在y轴的位置
+const double initAdminYAlign = groundYAlign - 0.05; //角色初始位置
 const double groundHeight = 10.0; //土地的高度
 
 class _GameState extends State<Game> with SingleTickerProviderStateMixin {
@@ -130,29 +130,17 @@ class _GameState extends State<Game> with SingleTickerProviderStateMixin {
         body: Center(
           child: ClipRect(
             child: Align(
-              widthFactor: 1,
-              child: Stack(
-                children: [
-                  //得分
-                  Align(
-                    alignment: Alignment(0.7, -0.8),
-                    child: Text(
-                      'HI  ${utils.addDigitToFive(highestScore)}  '
-                      '${utils.addDigitToFive(curScore)}',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 127, 127, 127),
-                        fontFamily: 'FZXIANGSU12',
-                      ),
-                    ),
-                  ),
-                  //文字提示区域
-                  if (!isRunning)
+              widthFactor: 0.8,
+              child: Container(
+                height: 300.0,
+                child: Stack(
+                  children: [
+                    //得分
                     Align(
-                      alignment: Alignment(0.0, -0.5),
+                      alignment: Alignment(0.7, -0.8),
                       child: Text(
-                        isFirstStart ? 'S T A R T' : 'G A M E   O V E R',
+                        'HI  ${utils.addDigitToFive(highestScore)}  '
+                        '${utils.addDigitToFive(curScore)}',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -161,59 +149,74 @@ class _GameState extends State<Game> with SingleTickerProviderStateMixin {
                         ),
                       ),
                     ),
-                  //操作按钮
-                  if (!isRunning)
-                    GestureDetector(
-                      onTap: () {
-                        isFirstStart = false;
-                        startGroundTimer();
-                      },
-                      child: Align(
-                        alignment: Alignment(0.0, -0.2),
-                        child: Container(
-                          width: 45.0,
-                          height: 30.0,
-                          decoration: BoxDecoration(
-                            color: drawColor,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Icon(
-                            isFirstStart
-                                ? Icons.not_started_outlined
-                                : Icons.autorenew_outlined,
-                            color: Colors.black,
+                    //文字提示区域
+                    if (!isRunning)
+                      Align(
+                        alignment: Alignment(0.0, -0.5),
+                        child: Text(
+                          isFirstStart ? 'S T A R T' : 'G A M E   O V E R',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 127, 127, 127),
+                            fontFamily: 'FZXIANGSU12',
                           ),
                         ),
                       ),
+                    //操作按钮
+                    if (!isRunning)
+                      GestureDetector(
+                        onTap: () {
+                          isFirstStart = false;
+                          startGroundTimer();
+                        },
+                        child: Align(
+                          alignment: Alignment(0.0, -0.2),
+                          child: Container(
+                            width: 45.0,
+                            height: 30.0,
+                            decoration: BoxDecoration(
+                              color: drawColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Icon(
+                              isFirstStart
+                                  ? Icons.not_started_outlined
+                                  : Icons.autorenew_outlined,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    //游戏角色
+                    Align(
+                      alignment: FractionalOffset(adminXAlign, adminYAlign),
+                      child: Container(
+                        child: DinosaurWidget(adminWidth, adminHeight),
+                      ),
                     ),
 
-                  //游戏角色
-                  Align(
-                    alignment: FractionalOffset(adminXAlign, adminYAlign),
-                    child: Container(
-                      child: DinosaurWidget(adminWidth, adminHeight),
+                    //左侧土地
+                    createSingleGround(
+                      leftXAlign,
+                      leftTree,
+                      // color: Colors.red,
                     ),
-                  ),
-
-                  //左侧土地
-                  createSingleGround(
-                    leftXAlign,
-                    leftTree,
-                    // color: Colors.red,
-                  ),
-                  //中间土地
-                  createSingleGround(
-                    centerXAlign,
-                    centerTree,
-                    // color: Colors.blue,
-                  ),
-                  //右侧土地
-                  createSingleGround(
-                    rightXAlign,
-                    rightTree,
-                    // color: Colors.yellow,
-                  ),
-                ],
+                    //中间土地
+                    createSingleGround(
+                      centerXAlign,
+                      centerTree,
+                      // color: Colors.blue,
+                    ),
+                    //右侧土地
+                    createSingleGround(
+                      rightXAlign,
+                      rightTree,
+                      // color: Colors.yellow,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
