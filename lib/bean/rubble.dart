@@ -10,4 +10,12 @@ class Rubble {
     start = Offset(sx, sy);
     end = Offset(ex, ey);
   }
+
+  double get sx => start.dx;
+
+  double get sy => start.dy;
+
+  double get ex => end.dx;
+
+  double get ey => end.dy;
 }

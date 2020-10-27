@@ -16,14 +16,10 @@ class Ground extends CustomPainter {
 
     var linePaint = Paint()
       ..color = color ?? Colors.white
-      ..strokeWidth = 2.0;
+      ..strokeWidth = 12.0;
 
     //地平线
-    canvas.drawLine(
-      Offset(0, 0),
-      Offset(width, 0),
-      linePaint,
-    );
+    canvas.drawRect(Rect.fromLTRB(0, 0, width, 1), linePaint);
 
     if (tree.isDouble) {
       if (tree.isAfter) {
@@ -39,7 +35,14 @@ class Ground extends CustomPainter {
 
     //碎石子
     RubbleFactory.instance.createRubbles(width, height).forEach((rubble) {
-      canvas.drawLine(rubble.start, rubble.end, linePaint);
+      canvas.drawRect(
+          Rect.fromLTRB(
+            rubble.sx,
+            rubble.sy,
+            rubble.ex,
+            rubble.ey + 1,
+          ),
+          linePaint);
     });
   }
 
